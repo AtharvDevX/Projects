@@ -1,25 +1,12 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const taskInput = document.getElementById("taskInput");
-    const taskList = document.getElementById("taskList");
+function updateClock() {
+    const now = new Date();
+    let hours = now.getHours().toString().padStart(2, '0');
+    let minutes = now.getMinutes().toString().padStart(2, '0');
+    let seconds = now.getSeconds().toString().padStart(2, '0');
 
-    window.addTask = function () {
-        if (taskInput.value.trim() === "") return;
+    document.getElementById("clock").innerText = `${hours}:${minutes}:${seconds}`;
+}
 
-        const li = document.createElement("li");
-        li.innerHTML = `
-            ${taskInput.value} 
-            <button onclick="deleteTask(this)">Delete</button>
-            <button onclick="completeTask(this)">✔</button>
-        `;
-        taskList.appendChild(li);
-        taskInput.value = "";
-    };
-
-    window.deleteTask = function (element) {
-        element.parentElement.remove();
-    };
-
-    window.completeTask = function (element) {
-        element.parentElement.classList.toggle("completed");
-    };
-});
+// Update clock every second
+setInterval(updateClock, 1000);
+updateClock(); // Call immediately to display time without waiting for first interval
